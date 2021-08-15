@@ -9,6 +9,9 @@ mongoose.connect('mongodb://localhost:27017/users_test', {
 // db.on('error', (error) => console.error(error))
 // db.once('open', () => console.log('Good to go!'))
 
-beforeEach(() => {
-  mongoose.connection.collections.users.drop()
+beforeEach((done) => {
+  mongoose.connection.collections.users.drop(() => {
+    // Ready to run the next test
+    done()
+  })
 })
