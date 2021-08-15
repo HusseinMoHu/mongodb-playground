@@ -4,7 +4,7 @@ const User = require('../src/user')
 describe('Create records', () => {
   it('saves a user', () => {
     const hatem = new User({
-      name: 'hatem'
+      name: 'hatem',
     })
     hatem.save()
   })
