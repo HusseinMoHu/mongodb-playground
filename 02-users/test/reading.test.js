@@ -12,7 +12,7 @@ describe('Reading users out of the database', () => {
   it('finds all users with a name of hatem', (done) => {
     User.find({ name: 'hatem' }).then((users) => {
       // When comparing _id, we need to convert them to strings
-      // _id for the same document it's differs in mongodb from mongoose
+      // Because _id for the same document differs in mongodb from mongoose
       assert(users[0]._id.toString() == hatem._id.toString())
       done()
     })
