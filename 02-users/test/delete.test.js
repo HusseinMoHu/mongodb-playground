@@ -19,4 +19,14 @@ describe('Deleting a user', () => {
         done()
       })
   })
+
+  it('class method deleteMany', (done) => {
+    // Remove a bunch of records with some given criteria
+    User.deleteMany({ name: 'Hatem' })
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        assert(user === null)
+        done()
+      })
+  })
 })
