@@ -29,4 +29,22 @@ describe('Deleting a user', () => {
         done()
       })
   })
+
+  it('class method findOneAndDelete', (done) => {
+    User.findOneAndDelete({ name: 'Hatem' })
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        assert(user === null)
+        done()
+      })
+  })
+
+  it('class method findByIdAndDelete', (done) => {
+    User.findByIdAndDelete(hatem._id)
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        assert(user === null)
+        done()
+      })
+  })
 })
