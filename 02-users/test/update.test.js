@@ -27,4 +27,34 @@ describe('Updating records', () => {
   it('instance method updateOne', (done) => {
     assertName(hatem.updateOne({ name: 'Hossam' }), done)
   })
+
+  it('class method updateOne', (done) => {
+    assertName(User.updateOne({ name: 'Hatem' }, { name: 'Hossam' }), done)
+  })
+
+  it('class method findOneAndUpdate', (done) => {
+    assertName(
+      User.findOneAndUpdate(
+        { name: 'Hatem' },
+        { name: 'Hossam' },
+        { useFindAndModify: false } // option
+      ),
+      done
+    )
+  })
+
+  it('class method findByIdAndUpdate', (done) => {
+    assertName(
+      User.findByIdAndUpdate(
+        hatem._id,
+        { name: 'Hossam' },
+        { useFindAndModify: false } // option
+      ),
+      done
+    )
+  })
+
+  it('class method updateMany', (done) => {
+    assertName(User.updateMany({ name: 'Hatem' }, { name: 'Hossam' }), done)
+  })
 })
