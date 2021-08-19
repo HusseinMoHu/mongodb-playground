@@ -5,7 +5,7 @@ describe('Updating records', () => {
   let hatem
 
   beforeEach((done) => {
-    hatem = new User({ name: 'Hatem' })
+    hatem = new User({ name: 'Hatem', postCount: 0 })
     hatem.save().then(() => done())
   })
 
@@ -56,5 +56,14 @@ describe('Updating records', () => {
 
   it('class method updateMany', (done) => {
     assertName(User.updateMany({ name: 'Hatem' }, { name: 'Hossam' }), done)
+  })
+
+  it('Increment user postCount by 1', (done) => {
+    User.updateOne({ name: 'Hatem' }, { $inc: { postCount: 1 } })
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        assert(user.postCount === 1)
+        done()
+      })
   })
 })
