@@ -13,4 +13,21 @@ describe('Subdocuments', () => {
         done()
       })
   })
+
+  it('Add subdocument to an existing record', (done) => {
+    const hatem = new User({ name: 'Hatem', posts: [] })
+
+    hatem
+      .save()
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        user.posts.push({ title: 'New Post' })
+        return user.save()
+      })
+      .then(() => User.findOne({ name: 'Hatem' }))
+      .then((user) => {
+        assert(user.posts[0].title === 'New Post')
+        done()
+      })
+  })
 })
