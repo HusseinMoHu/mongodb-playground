@@ -58,7 +58,7 @@ describe('Updating records', () => {
     assertName(User.updateMany({ name: 'Hatem' }, { name: 'Hossam' }), done)
   })
 
-  it('Increment user postCount by 1', (done) => {
+  xit('Increment user postCount by 1', (done) => {
     User.updateOne({ name: 'Hatem' }, { $inc: { postCount: 1 } })
       .then(() => User.findOne({ name: 'Hatem' }))
       .then((user) => {
