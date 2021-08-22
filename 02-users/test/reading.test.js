@@ -2,18 +2,22 @@ const assert = require('assert')
 const User = require('../src/user')
 
 describe('Reading users out of the database', () => {
-  let hatem
+  let ahmed, hatem, hossam, walid
 
   beforeEach((done) => {
+    ahmed = new User({ name: 'Ahmed' })
     hatem = new User({ name: 'Hatem' })
-    hatem.save().then(() => done())
+    hossam = new User({ name: 'Hossam' })
+    walid = new User({ name: 'Walid' })
+
+    Promise.all([ahmed.save(), walid.save(), hossam.save(), hatem.save()]).then(
+      () => done()
+    )
   })
 
   it('finds all users with a name of hatem', (done) => {
     User.find({ name: 'Hatem' }).then((users) => {
-      // When comparing _id, we need to convert them to strings
-      // Because _id for the same document differs in mongodb from mongoose
-      assert(users[0]._id.toString() == hatem._id.toString())
+      assert(users[0]._id.toString() === hatem._id.toString())
       done()
     })
   })
@@ -23,5 +27,18 @@ describe('Reading users out of the database', () => {
       assert(user.name === 'Hatem')
       done()
     })
+  })
+
+  it('can skip and limit the result set', (done) => {
+    User.find({})
+      .sort({ name: 1 }) // 1: ascending, -1: descending
+      .skip(1)
+      .limit(2)
+      .then((users) => {
+        assert(users.length === 2)
+        assert(users[0].name === 'Hatem')
+        assert(users[1].name === 'Hossam')
+        done()
+      })
   })
 })
