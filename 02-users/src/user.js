@@ -24,10 +24,12 @@ userSchema.virtual('postCount').get(function () {
   return this.posts.length
 })
 
-userSchema.pre('remove', async function () {
+userSchema.pre('remove', async function (next) {
   const user = this
-
   const BlogPost = mongoose.model('BlogPost')
+
+  await BlogPost.deleteMany({ _id: { $in: user.blogPosts } })
+  next()
 })
 
 const User = mongoose.model('User', userSchema)
