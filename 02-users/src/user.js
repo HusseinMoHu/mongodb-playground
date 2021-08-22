@@ -27,9 +27,6 @@ userSchema.virtual('postCount').get(function () {
 userSchema.pre('remove', async function () {
   const user = this
 
-  // to Dealing with cyclic Requires
-  // mongoose.model() call will not be invoked until this function actually runs
-  // as opposite to require() which grabbing model before everything else
   const BlogPost = mongoose.model('BlogPost')
 })
 
