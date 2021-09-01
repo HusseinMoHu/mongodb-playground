@@ -1,10 +1,10 @@
 const express = require('express')
+const driverRoutes = require('./routes/driverRoutes')
 
 const app = express()
-// app.use(express.json())
+app.use(express.json())
 
-app.get('/api', (req, res) => {
-  res.send({ hi: 'there' })
-})
+// Routes
+driverRoutes(app)
 
 module.exports = app
