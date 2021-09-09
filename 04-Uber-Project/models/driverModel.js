@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const driverSchema = new mongoose.Schema({
+const driverSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -9,8 +9,8 @@ const driverSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-})
+});
 
-const Driver = mongoose.mongo('Driver', driverSchema)
+const Driver = mongoose.model("Driver", driverSchema);
 
-module.exports = Driver
+module.exports = Driver;

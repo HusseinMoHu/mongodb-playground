@@ -1,10 +1,19 @@
-const express = require('express')
-const driverRoutes = require('./routes/driverRoutes')
+const express = require("express");
+const mongoose = require("mongoose");
+const driverRoutes = require("./routes/driverRoutes");
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
+
+if (process.env.NODE_ENV !== "test") {
+  mongoose.connect("mongodb://localhost:27017/uber");
+}
 
 // Routes
-driverRoutes(app)
+driverRoutes(app);
 
-module.exports = app
+app.use((err, req, res, next) => {
+  res.status(422).send({ message: err.message });
+});
+
+module.exports = app;
