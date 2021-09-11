@@ -15,6 +15,7 @@ beforeEach((done) => {
 
   drivers
     .drop()
+    .then(() => drivers.createIndex({ "location.coordinates": "2dsphere" }))
     .then(() => done())
     .catch(() => done());
 });

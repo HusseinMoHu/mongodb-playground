@@ -15,13 +15,15 @@ module.exports = {
           coordinates: [parseFloat(lng), parseFloat(lat)],
         },
         spherical: true,
-        maxDistance: 5000, // 5km
-        distanceField: "dist.calculated",
-        includeLocs: "dist.location",
+        maxDistance: 200000, // 200 km
+        distanceField: "dist",
+        // distanceField: "dist.location",
+        // includeLocs: "dist.location",
         uniqueDocs: true,
-        $limit: 5,
       })
-      .then((driver) => res.send(driver))
+      .limit(5)
+      .sort({ dist: 1 })
+      .then((drivers) => res.send(drivers))
       .catch(next);
   },
 
